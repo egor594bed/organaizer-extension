@@ -29,27 +29,22 @@ export const TodoNewTaskForm: FC<ITodoNewTaskForm> = () => {
 
   return (
     <form onSubmit={(e) => todoSubmitHandler(e)}>
-      <Box sx={{ display: "flex", alignItems: "center" }}>
-        <TextField
-          onChange={(e) => setFormInput(e.target.value)}
-          value={formInput}
-          label="Новая задача"
-          variant="outlined"
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  type="submit"
-                  disabled={formInput.trim().length < 1}
-                >
-                  <AddIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-          sx={{ flex: 1, marginRight: 1 }}
-        ></TextField>
-      </Box>
+      <TextField
+        onChange={(e) => setFormInput(e.target.value)}
+        value={formInput}
+        label="Новая задача"
+        variant="outlined"
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton type="submit" disabled={formInput.trim().length < 1}>
+                <AddIcon />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
+        sx={{ width: "100%" }}
+      ></TextField>
     </form>
   );
 };

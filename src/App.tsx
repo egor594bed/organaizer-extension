@@ -1,12 +1,12 @@
 import React from "react";
 import { Layout } from "./components/Layout";
+import { Provider } from "react-redux";
+import { store } from "./redux/store";
+import { Navigate } from "./navigate/Navigate";
 
 function App() {
-  return (
-    <div style={{ width: 400, height: 600, border: "1px solid red" }}>
-      <Layout />
-    </div>
-  );
+  console.log("App");
+  return <Navigate />;
 }
 
 export default App;
