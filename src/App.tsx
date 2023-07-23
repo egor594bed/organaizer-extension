@@ -5,7 +5,6 @@ import { store } from "./redux/store";
 import { Navigate } from "./navigate/Navigate";
 
 function App() {
-  console.log("App");
   return <Navigate />;
 }
 

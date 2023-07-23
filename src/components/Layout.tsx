@@ -5,7 +5,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 export const Layout = () => {
   const [value, setValue] = React.useState("/");
   const navigate = useNavigate();
-  console.log("Layout");
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);

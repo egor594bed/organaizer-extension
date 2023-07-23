@@ -5,7 +5,6 @@ import { Todo } from "../components/Todo/Todo";
 import { Layout } from "../components/Layout";
 
 export const Navigate = () => {
-  console.log("Navigate");
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
