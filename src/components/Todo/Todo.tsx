@@ -1,12 +1,18 @@
 import React from "react";
 import { TodoNewTaskForm } from "./TodoNewTaskForm";
 import { TodoList } from "./TodoList";
-import TodoLocalStorageService from "../../services/local-storage-service";
+import { Box, Container } from "@mui/material";
 export const Todo = () => {
   return (
     <>
-      <TodoNewTaskForm />
-      <TodoList />
+      <Container>
+        <Box sx={{ paddingTop: 3 }}>
+          <TodoNewTaskForm />
+        </Box>
+        <Box sx={{ paddingBottom: 1 }}>
+          <TodoList />
+        </Box>
+      </Container>
     </>
   );
 };
