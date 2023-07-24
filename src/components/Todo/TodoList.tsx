@@ -9,12 +9,15 @@ import { RootState } from "../../redux/store";
 interface ITodoList {}
 
 export const TodoList: FC<ITodoList> = () => {
-  const [parent, enableAnimations] = useAutoAnimate();
+  const [parent] = useAutoAnimate();
   const taskList: Task[] = useSelector(
     (state: RootState) => state.todo.taskList
   );
   return (
-    <List ref={parent}>
+    <List
+      ref={parent}
+      sx={{ height: "445px", overflowY: "auto", overflowX: "hidden" }}
+    >
       {taskList.length > 0 ? (
         taskList.map((taskData) => {
           return (

@@ -1,18 +1,10 @@
-import React, { FC, useState } from "react";
-import {
-  Box,
-  IconButton,
-  Input,
-  InputAdornment,
-  TextField,
-} from "@mui/material";
+import React, { useState } from "react";
+import { IconButton, InputAdornment, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { useDispatch } from "react-redux";
 import { addTask } from "../../redux/slices/todo";
 
-interface ITodoNewTaskForm {}
-
-export const TodoNewTaskForm: FC<ITodoNewTaskForm> = () => {
+export const TodoNewTaskForm = () => {
   const [formInput, setFormInput] = useState("");
   const dispatch = useDispatch();
 
@@ -43,7 +35,7 @@ export const TodoNewTaskForm: FC<ITodoNewTaskForm> = () => {
             </InputAdornment>
           ),
         }}
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", paddingBottom: 1 }}
       ></TextField>
     </form>
   );
