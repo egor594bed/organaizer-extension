@@ -8,7 +8,7 @@ class LocalStorageService {
     return JSON.parse(localStorage.getItem(storageName) as string);
   }
 
-  saveNewData(newTasksArr: Task[] | Note[], storageName: storageName) {
+  saveNewData(newTasksArr: Task[] | NotesGroup[], storageName: storageName) {
     localStorage.setItem(storageName, JSON.stringify(newTasksArr));
   }
 }
