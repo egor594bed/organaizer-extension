@@ -13,7 +13,7 @@ export const Layout = () => {
       }}
     >
       <TabBarNavigate />
-      <Container>
+      <Container sx={{ marginTop: 3, marginBottom: 1 }}>
         <Outlet />
       </Container>
     </Box>

@@ -1,18 +1,16 @@
-import { Task } from "../types/TodoTypes";
+type storageName = "todo_storage" | "notes_storage";
 
-const storageName = "organaizer_storage";
-
-class TodoLocalStorageService {
-  getLocalStorageTasks() {
+class LocalStorageService {
+  getLocalStorageData<T>(storageName: storageName): T[] {
     if (!localStorage.getItem(storageName))
       localStorage.setItem(storageName, JSON.stringify([]));
 
     return JSON.parse(localStorage.getItem(storageName) as string);
   }
 
-  saveNewTasksArr(newTasksArr: Task[]) {
+  saveNewData(newTasksArr: Task[] | Note[], storageName: storageName) {
     localStorage.setItem(storageName, JSON.stringify(newTasksArr));
   }
 }
 
-export default new TodoLocalStorageService();
+export default new LocalStorageService();

@@ -1,5 +1,5 @@
-type Task = {
+type Note = {
   id: string;
   text: string;
-  done: boolean;
+  show: boolean;
 };

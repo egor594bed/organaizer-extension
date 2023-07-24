@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { Divider, List, ListItem, Typography } from "@mui/material";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TodoTask } from "./TodoTask";
-import { Task } from "../../types/TodoTypes";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 

@@ -1,13 +1,12 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import TodoLocalStorageService from "../../services/local-storage-service";
-import { Task } from "../../types/TodoTypes";
+import LocalStorageService from "../../services/local-storage-service";
 
 interface ITodoSlice {
   taskList: Task[];
 }
 
 const initialState: ITodoSlice = {
-  taskList: TodoLocalStorageService.getLocalStorageTasks(),
+  taskList: LocalStorageService.getLocalStorageData<Task>("todo_storage"),
 };
 
 export const todoSlice = createSlice({
@@ -16,14 +15,14 @@ export const todoSlice = createSlice({
   reducers: {
     addTask(state, action: PayloadAction<Task>) {
       state.taskList = [action.payload, ...state.taskList];
-      TodoLocalStorageService.saveNewTasksArr(state.taskList);
+      LocalStorageService.saveNewData(state.taskList, "todo_storage");
     },
     removeTask(state, action: PayloadAction<string>) {
       state.taskList = state.taskList.filter((elem) => {
         if (elem.id === action.payload) return false;
         return true;
       });
-      TodoLocalStorageService.saveNewTasksArr(state.taskList);
+      LocalStorageService.saveNewData(state.taskList, "todo_storage");
     },
     toggleTask(state, action: PayloadAction<string>) {
       state.taskList = state.taskList.map((elem) => {
@@ -32,7 +31,7 @@ export const todoSlice = createSlice({
         }
         return elem;
       });
-      TodoLocalStorageService.saveNewTasksArr(state.taskList);
+      LocalStorageService.saveNewData(state.taskList, "todo_storage");
     },
   },
 });

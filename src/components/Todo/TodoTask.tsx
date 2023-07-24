@@ -6,7 +6,6 @@ import {
   ListItemText,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Task } from "../../types/TodoTypes";
 import { removeTask, toggleTask } from "../../redux/slices/todo";
 import { useDispatch } from "react-redux";
 
