@@ -65,6 +65,18 @@ export const notesSlice = createSlice({
       });
       LocalStorageService.saveNewData(state.noteList, "notes_storage");
     },
+    changeNoteText(state, action: PayloadAction<{ text: string; id: string }>) {
+      state.noteList = state.noteList.map((noteGroup) => {
+        const updatedNotes = noteGroup.notes.map((note) => {
+          if (note.id === action.payload.id) {
+            return { ...note, text: action.payload.text };
+          }
+          return note;
+        });
+        return { ...noteGroup, notes: updatedNotes };
+      });
+      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+    },
   },
 });
 
@@ -74,6 +86,7 @@ export const {
   removeNote,
   removeNoteGroup,
   showNote,
+  changeNoteText,
 } = notesSlice.actions;
 
 export default notesSlice.reducer;

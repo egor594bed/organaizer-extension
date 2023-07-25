@@ -1,21 +1,27 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   IconButton,
+  InputAdornment,
   ListItemButton,
   ListItemText,
   Skeleton,
+  TextField,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { removeNote, showNote } from "../../redux/slices/notes";
+import { changeNoteText, removeNote, showNote } from "../../redux/slices/notes";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import CheckIcon from "@mui/icons-material/Check";
 
 interface INote {
   noteData: Note;
 }
 
 export const Note: FC<INote> = ({ noteData }) => {
+  const [edit, setEdit] = useState(false);
+  const [noteText, setNoteText] = useState(noteData.text);
+
   const dispatch = useDispatch();
   const removeHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
@@ -24,27 +30,50 @@ export const Note: FC<INote> = ({ noteData }) => {
     dispatch(removeNote(noteData.id));
   };
   const toggleShowHandler = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
+    e.stopPropagation();
     dispatch(showNote(noteData.id));
+  };
+
+  const saveEditText = (
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
+  ) => {
+    e.preventDefault();
+    dispatch(changeNoteText({ id: noteData.id, text: noteText }));
+    setEdit(false);
   };
 
   return (
     <>
-      <ListItemButton onClick={(e) => toggleShowHandler(e)}>
-        <IconButton>
+      <ListItemButton onClick={edit ? undefined : () => setEdit(!edit)}>
+        <IconButton onClick={(e) => toggleShowHandler(e)}>
           {noteData.show ? <VisibilityOffIcon /> : <VisibilityIcon />}
         </IconButton>
-        <ListItemText
-          primary={
-            noteData.show ? (
-              noteData.text
-            ) : (
-              <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
-            )
-          }
-        ></ListItemText>
+        {edit ? (
+          <TextField
+            value={noteText}
+            variant="standard"
+            onChange={(e) => setNoteText(e.target.value)}
+            sx={{ width: "100%" }}
+            autoFocus
+            InputProps={{
+              onBlur: (e) => saveEditText(e),
+            }}
+          ></TextField>
+        ) : (
+          <ListItemText
+            primary={
+              noteData.show ? (
+                noteData.text
+              ) : (
+                <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
+              )
+            }
+          ></ListItemText>
+        )}
+
         <IconButton onClick={(e) => removeHandler(e)}>
           <DeleteIcon />
         </IconButton>
