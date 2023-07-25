@@ -53,16 +53,15 @@ export const notesSlice = createSlice({
       LocalStorageService.saveNewData(state.noteList, "notes_storage");
     },
 
-    //Не работает :(
     showNote(state, action: PayloadAction<string>) {
       state.noteList = state.noteList.map((noteGroup) => {
-        noteGroup.notes.map((note) => {
+        const updatedNotes = noteGroup.notes.map((note) => {
           if (note.id === action.payload) {
             return { ...note, show: !note.show };
           }
           return note;
         });
-        return noteGroup;
+        return { ...noteGroup, notes: updatedNotes };
       });
       LocalStorageService.saveNewData(state.noteList, "notes_storage");
     },
