@@ -9,7 +9,9 @@ interface IMyAddInput {
 export const MyAddInput: FC<IMyAddInput> = ({ getValue }) => {
   const [formInput, setFormInput] = useState("");
   const sumbitHandler = (
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+    e:
+      | React.MouseEvent<HTMLButtonElement, MouseEvent>
+      | React.KeyboardEvent<HTMLDivElement>
   ) => {
     e.preventDefault();
     getValue(formInput.trim());
@@ -19,6 +21,9 @@ export const MyAddInput: FC<IMyAddInput> = ({ getValue }) => {
   return (
     <TextField
       onChange={(e) => setFormInput(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter") sumbitHandler(e);
+      }}
       value={formInput}
       label="Новая заметка"
       variant="outlined"
