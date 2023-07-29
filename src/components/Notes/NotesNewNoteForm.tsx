@@ -24,7 +24,7 @@ export const NotesNewNoteForm = () => {
       <TextField
         onChange={(e) => setFormInput(e.target.value)}
         value={formInput}
-        label="Новая заметка"
+        label="Новая группа"
         variant="outlined"
         InputProps={{
           endAdornment: (

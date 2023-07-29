@@ -36,7 +36,6 @@ export const Note: FC<INote> = ({ noteData }) => {
     e.stopPropagation();
     dispatch(showNote(noteData.id));
   };
-
   const saveEditText = (
     e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
   ) => {
@@ -48,9 +47,6 @@ export const Note: FC<INote> = ({ noteData }) => {
   return (
     <>
       <ListItemButton onClick={edit ? undefined : () => setEdit(!edit)}>
-        <IconButton onClick={(e) => toggleShowHandler(e)}>
-          {noteData.show ? <VisibilityOffIcon /> : <VisibilityIcon />}
-        </IconButton>
         {edit ? (
           <TextField
             value={noteText}
@@ -58,6 +54,7 @@ export const Note: FC<INote> = ({ noteData }) => {
             onChange={(e) => setNoteText(e.target.value)}
             sx={{ width: "100%" }}
             autoFocus
+            multiline
             InputProps={{
               onBlur: (e) => saveEditText(e),
             }}
@@ -71,9 +68,12 @@ export const Note: FC<INote> = ({ noteData }) => {
                 <Skeleton variant="text" sx={{ fontSize: "1rem" }} />
               )
             }
+            sx={{ wordBreak: "break-word" }}
           ></ListItemText>
         )}
-
+        <IconButton onClick={(e) => toggleShowHandler(e)}>
+          {noteData.show ? <VisibilityOffIcon /> : <VisibilityIcon />}
+        </IconButton>
         <IconButton onClick={(e) => removeHandler(e)}>
           <DeleteIcon />
         </IconButton>

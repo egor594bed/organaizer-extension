@@ -1,13 +1,17 @@
 import React, { FC, memo } from "react";
 import {
+  Box,
   Checkbox,
   IconButton,
   ListItemButton,
   ListItemText,
+  Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { removeTask, toggleTask } from "../../redux/slices/todo";
 import { useDispatch } from "react-redux";
+import { Task } from "../../types/TodoTypes";
+import dayjs from "dayjs";
 
 interface ITodoTask {
   taskData: Task;
@@ -29,17 +33,27 @@ export const TodoTask: FC<ITodoTask> = memo(({ taskData }) => {
   };
 
   return (
-    <>
-      <ListItemButton onClick={(e) => toggleTaskHandler(e)}>
-        <Checkbox checked={taskData.done} />
-        <ListItemText
-          primary={taskData.text}
-          sx={{ textDecoration: taskData.done ? "line-through" : "" }}
-        ></ListItemText>
-        <IconButton onClick={(e) => removeHandler(e)}>
-          <DeleteIcon />
-        </IconButton>
-      </ListItemButton>
-    </>
+    <ListItemButton
+      onClick={(e) => toggleTaskHandler(e)}
+      sx={{ position: "relative" }}
+    >
+      <Checkbox checked={taskData.done} />
+      <ListItemText
+        primary={taskData.text}
+        sx={{ textDecoration: taskData.done ? "line-through" : "" }}
+      ></ListItemText>
+      <IconButton onClick={(e) => removeHandler(e)}>
+        <DeleteIcon />
+      </IconButton>
+      {taskData.deadline && (
+        //Временное решение
+        <Typography
+          variant="caption"
+          sx={{ position: "absolute", right: 0, bottom: 0 }}
+        >
+          {dayjs(taskData.deadline as dayjs.Dayjs).format("DD.MM.YYYY HH:mm")}
+        </Typography>
+      )}
+    </ListItemButton>
   );
 });

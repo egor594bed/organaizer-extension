@@ -4,6 +4,7 @@ import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { TodoTask } from "./TodoTask";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { Task } from "../../types/TodoTypes";
 
 interface ITodoList {}
 
