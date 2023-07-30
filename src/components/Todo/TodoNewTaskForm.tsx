@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import AddIcon from "@mui/icons-material/Add";
 import { addTask } from "../../redux/slices/todo";
+import MuiAccordionSummary, {
+  AccordionSummaryProps,
+} from "@mui/material/AccordionSummary";
 import {
   Accordion,
   AccordionDetails,
-  AccordionSummary,
   Box,
   Button,
   Checkbox,
@@ -14,11 +15,24 @@ import {
   InputAdornment,
   TextField,
   Typography,
+  styled,
 } from "@mui/material";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import CloseIcon from "@mui/icons-material/Close";
 import dayjs from "dayjs";
 import { Task } from "../../types/TodoTypes";
+
+const AccordionSummary = styled((props: AccordionSummaryProps) => (
+  <MuiAccordionSummary {...props} />
+))(({ theme }) => ({
+  padding: 0,
+  ".MuiAccordionSummary-content": {
+    margin: 0,
+  },
+  "&.Mui-focusVisible": {
+    backgroundColor: "transparent",
+  },
+}));
 
 export const TodoNewTaskForm = () => {
   const [formInput, setFormInput] = useState("");
@@ -28,6 +42,7 @@ export const TodoNewTaskForm = () => {
     deadline: false,
   });
   const [deadlineTime, setDeadlineTime] = useState(dayjs().add(1, "day"));
+  const firstInput = useRef<HTMLInputElement>(null);
 
   const todoSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -49,13 +64,18 @@ export const TodoNewTaskForm = () => {
     });
   };
 
+  const handleOnBlur = () => {
+    if (formInput.trim().length < 1) {
+      setShowSettings(false);
+    }
+  };
+
   return (
     <form onSubmit={(e) => todoSubmitHandler(e)}>
       <Accordion
         expanded={showSettings}
         disableGutters
         elevation={0}
-        //TODO: Убрать поинтер
         sx={{
           "&:before": {
             display: "none",
@@ -66,16 +86,21 @@ export const TodoNewTaskForm = () => {
           <TextField
             onChange={(e) => setFormInput(e.target.value)}
             onFocus={() => setShowSettings(true)}
+            onBlur={() => handleOnBlur()}
             value={formInput}
             label="Новая задача"
             variant="outlined"
+            inputRef={firstInput}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
                     type="submit"
                     disabled={formInput.trim().length < 1}
-                    onClick={() => setFormInput("")}
+                    onClick={() => {
+                      setFormInput("");
+                      firstInput.current?.focus();
+                    }}
                   >
                     <CloseIcon />
                   </IconButton>
