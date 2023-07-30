@@ -8,8 +8,8 @@ export const Navigate = () => {
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
-        <Route index element={<Todo />} />
-        <Route path="notes" element={<Notes />} />
+        <Route index element={<Notes />} />
+        <Route path="todo" element={<Todo />} />
         <Route path="others1" element={<div>TEst</div>} />
         <Route path="others2" element={<div>TEst</div>} />
       </Route>

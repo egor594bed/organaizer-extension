@@ -39,6 +39,7 @@ export const TodoNewTaskForm = () => {
     };
     dispatch(addTask(newTask));
     setFormInput("");
+    setShowSettings(false);
   };
 
   const handleSettings = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,26 +1,16 @@
 import React from "react";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { List, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { NoteGroup } from "./NoteGroup";
+import { MyList } from "../UI/MyList/MyList";
 
 export const NotesList = () => {
-  const [parent] = useAutoAnimate();
   const NotesGroupList: NotesGroup[] = useSelector(
     (state: RootState) => state.notes.noteList
   );
   return (
-    <List
-      ref={parent}
-      sx={{
-        height: "445px",
-        paddingLeft: "2px",
-        paddingRight: "2px",
-        overflowY: "auto",
-        overflowX: "hidden",
-      }}
-    >
+    <MyList>
       {NotesGroupList.length > 0 ? (
         NotesGroupList.map((notesGroupData) => {
           return (
@@ -32,6 +22,6 @@ export const NotesList = () => {
       ) : (
         <Typography>Список заметок пуст</Typography>
       )}
-    </List>
+    </MyList>
   );
 };

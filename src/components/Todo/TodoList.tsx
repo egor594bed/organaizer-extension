@@ -1,23 +1,19 @@
 import React, { FC } from "react";
-import { Divider, List, ListItem, Typography } from "@mui/material";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { Divider, ListItem, Typography } from "@mui/material";
 import { TodoTask } from "./TodoTask";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { Task } from "../../types/TodoTypes";
+import { MyList } from "../UI/MyList/MyList";
 
 interface ITodoList {}
 
 export const TodoList: FC<ITodoList> = () => {
-  const [parent] = useAutoAnimate();
   const taskList: Task[] = useSelector(
     (state: RootState) => state.todo.taskList
   );
   return (
-    <List
-      ref={parent}
-      sx={{ height: "445px", overflowY: "auto", overflowX: "hidden" }}
-    >
+    <MyList>
       {taskList.length > 0 ? (
         taskList.map((taskData) => {
           return (
@@ -32,6 +28,6 @@ export const TodoList: FC<ITodoList> = () => {
       ) : (
         <Typography>Список задач пуст</Typography>
       )}
-    </List>
+    </MyList>
   );
 };

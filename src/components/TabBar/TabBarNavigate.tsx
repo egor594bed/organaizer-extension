@@ -12,8 +12,8 @@ export const TabBarNavigate = () => {
   };
   return (
     <Tabs value={value} onChange={handleChange} aria-label="nav tabs example">
-      <Tab label="Задачи" value={"/"} />
-      <Tab label="Заметки" value={"/notes"} />
+      <Tab label="Заметки" value={"/"} />
+      <Tab label="Задачи" value={"/todo"} />
       <Tab label="Что-то еще" value={"/others1"} />
       <Tab label="Что-то еще" value={"/others2"} />
     </Tabs>
