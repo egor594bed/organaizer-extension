@@ -7,7 +7,13 @@ export const store = configureStore({
     todo,
     notes,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActionPaths: [`payload.deadline`],
+        ignoredPaths: ["todo.taskList.0.deadline"],
+      },
+    }),
 });
-
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
