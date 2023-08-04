@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import todo from "./slices/todo";
 import notes from "./slices/notes";
+import auth from "./slices/auth";
 
 export const store = configureStore({
   reducer: {
     todo,
     notes,
+    auth,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

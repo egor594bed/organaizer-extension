@@ -7,5 +7,6 @@
     "default_popup": "index.html",
     "default_title": "Open"
   },
-  "permissions": ["scripting", "storage"]
+  "permissions": ["scripting", "storage", "cookies"],
+  "host_permissions": ["<all_urls>"]
 }

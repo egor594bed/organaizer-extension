@@ -1,3 +1,5 @@
+import { Task } from "../types/TodoTypes";
+
 type storageName = "todo_storage" | "notes_storage";
 
 class LocalStorageService {
