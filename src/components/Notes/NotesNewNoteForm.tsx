@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { IconButton, InputAdornment, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import { addNoteGroup } from "../../redux/slices/notes";
+import { TNotesGroup } from "../../types/NotesTypes";
 
 export const NotesNewNoteForm = () => {
   const [formInput, setFormInput] = useState("");
@@ -10,7 +11,7 @@ export const NotesNewNoteForm = () => {
 
   const noteSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newNote: NotesGroup = {
+    const newNote: TNotesGroup = {
       id: String(Date.now()),
       groupName: formInput.trim(),
       notes: [],

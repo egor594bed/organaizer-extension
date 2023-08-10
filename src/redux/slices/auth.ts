@@ -3,6 +3,7 @@ import { baseURL } from "../../const/config";
 const initialState = {
   isAuth: false,
   loading: false,
+  offlineMode: false,
 };
 
 export const checkAuth = createAsyncThunk("authSlice/checkAuth", async () => {

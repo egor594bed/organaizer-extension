@@ -5,4 +5,5 @@ export type Task = {
   text: string;
   done: boolean;
   deadline: boolean | dayjs.Dayjs;
+  actualData?: boolean;
 };

@@ -1,37 +1,46 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import LocalStorageService from "../../services/local-storage-service";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import localStorageService from "../../services/local-storage-service";
+import dataApiService from "../../services/data-api-service";
+import { TNote, TNotesGroup } from "../../types/NotesTypes";
 
 interface INotesSlice {
-  noteList: NotesGroup[];
+  noteList: TNotesGroup[];
+  loading: boolean;
 }
 
 const initialState: INotesSlice = {
-  noteList:
-    LocalStorageService.getLocalStorageData<NotesGroup>("notes_storage"),
+  noteList: localStorageService.getLocalStorageData<TNotesGroup>("notes"),
+  loading: false,
 };
+
+export const getNotes = createAsyncThunk("notesSlice/getNotes", () => {
+  try {
+    return dataApiService.getData<TNotesGroup[]>("notes");
+  } catch (error) {}
+});
 
 export const notesSlice = createSlice({
   name: "notesSlice",
   initialState,
   reducers: {
-    addNoteGroup(state, action: PayloadAction<NotesGroup>) {
+    addNoteGroup(state, action: PayloadAction<TNotesGroup>) {
       state.noteList = [action.payload, ...state.noteList];
-      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+      localStorageService.saveNewData(state.noteList, "notes");
     },
     addNoteInGroup(
       state,
-      action: PayloadAction<{ groupName: string; note: Note }>
+      action: PayloadAction<{ groupName: string; note: TNote }>
     ) {
-      state.noteList = state.noteList.map((notesGroup) => {
-        if (notesGroup.groupName === action.payload.groupName) {
+      state.noteList = state.noteList.map((TNotesGroup) => {
+        if (TNotesGroup.groupName === action.payload.groupName) {
           return {
-            ...notesGroup,
-            notes: [...notesGroup.notes, action.payload.note],
+            ...TNotesGroup,
+            notes: [...TNotesGroup.notes, action.payload.note],
           };
         }
-        return notesGroup;
+        return TNotesGroup;
       });
-      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+      localStorageService.saveNewData(state.noteList, "notes");
     },
     removeNoteGroup(state, action: PayloadAction<string>) {
       state.noteList = state.noteList.filter((noteGroup) => {
@@ -39,7 +48,7 @@ export const notesSlice = createSlice({
         return true;
       });
 
-      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+      localStorageService.saveNewData(state.noteList, "notes");
     },
     removeNote(state, action: PayloadAction<string>) {
       state.noteList = state.noteList.map((noteGroup) => {
@@ -50,7 +59,7 @@ export const notesSlice = createSlice({
         return noteGroup;
       });
 
-      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+      localStorageService.saveNewData(state.noteList, "notes");
     },
 
     showNote(state, action: PayloadAction<string>) {
@@ -63,7 +72,7 @@ export const notesSlice = createSlice({
         });
         return { ...noteGroup, notes: updatedNotes };
       });
-      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+      localStorageService.saveNewData(state.noteList, "notes");
     },
     changeNoteText(state, action: PayloadAction<{ text: string; id: string }>) {
       state.noteList = state.noteList.map((noteGroup) => {
@@ -75,8 +84,21 @@ export const notesSlice = createSlice({
         });
         return { ...noteGroup, notes: updatedNotes };
       });
-      LocalStorageService.saveNewData(state.noteList, "notes_storage");
+      localStorageService.saveNewData(state.noteList, "notes");
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(getNotes.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      getNotes.fulfilled,
+      (state, action: PayloadAction<TNotesGroup[] | undefined>) => {
+        state.loading = false;
+        if (!action.payload) return;
+        state.noteList = action.payload;
+      }
+    );
   },
 });
 

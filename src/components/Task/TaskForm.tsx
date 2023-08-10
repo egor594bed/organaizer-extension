@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { addTask } from "../../redux/slices/todo";
+import { addTask } from "../../redux/slices/task";
 import MuiAccordionSummary, {
   AccordionSummaryProps,
 } from "@mui/material/AccordionSummary";
@@ -34,7 +34,7 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
   },
 }));
 
-export const TodoNewTaskForm = () => {
+export const TaskForm = () => {
   const [formInput, setFormInput] = useState("");
   const [showSettings, setShowSettings] = useState(false);
   const dispatch = useDispatch();
@@ -95,7 +95,7 @@ export const TodoNewTaskForm = () => {
               endAdornment: (
                 <InputAdornment position="end">
                   <IconButton
-                    type="submit"
+                    type="button"
                     disabled={formInput.trim().length < 1}
                     onClick={() => {
                       setFormInput("");

@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Todo } from "../components/Todo/Todo";
+import { Task } from "../components/Task/Task";
 import { Layout } from "../components/Layout";
 import { Notes } from "../components/Notes/Notes";
 import { Auth } from "../components/Auth/Auth";
@@ -15,7 +15,7 @@ export const Navigate = () => {
       {isAuth ? (
         <Route path="/" element={<Layout />}>
           <Route index element={<Notes />} />
-          <Route path="todo" element={<Todo />} />
+          <Route path="todo" element={<Task />} />
           <Route path="others1" element={<div>TEst</div>} />
           <Route path="others2" element={<div>TEst</div>} />
         </Route>

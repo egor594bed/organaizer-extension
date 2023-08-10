@@ -1,11 +1,12 @@
-type Note = {
+export type TNote = {
   id: string;
   text: string;
   show: boolean;
 };
 
-type NotesGroup = {
+export type TNotesGroup = {
   id: string;
   groupName: string;
-  notes: Note[];
+  notes: TNote[];
+  actualData?: boolean;
 };

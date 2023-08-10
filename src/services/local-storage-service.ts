@@ -1,17 +1,17 @@
+import { dataType } from "../types/DataTypes";
+import { TNotesGroup } from "../types/NotesTypes";
 import { Task } from "../types/TodoTypes";
 
-type storageName = "todo_storage" | "notes_storage";
-
 class LocalStorageService {
-  getLocalStorageData<T>(storageName: storageName): T[] {
-    if (!localStorage.getItem(storageName))
-      localStorage.setItem(storageName, JSON.stringify([]));
+  getLocalStorageData<T>(storageName: dataType): T[] {
+    if (!localStorage.getItem(storageName + "_storage"))
+      localStorage.setItem(storageName + "_storage", JSON.stringify([]));
 
-    return JSON.parse(localStorage.getItem(storageName) as string);
+    return JSON.parse(localStorage.getItem(storageName + "_storage") as string);
   }
 
-  saveNewData(newTasksArr: Task[] | NotesGroup[], storageName: storageName) {
-    localStorage.setItem(storageName, JSON.stringify(newTasksArr));
+  saveNewData(newTasksArr: Task[] | TNotesGroup[], storageName: dataType) {
+    localStorage.setItem(storageName + "_storage", JSON.stringify(newTasksArr));
   }
 }
 

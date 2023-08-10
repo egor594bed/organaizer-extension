@@ -1,11 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import todo from "./slices/todo";
+import task from "./slices/task";
 import notes from "./slices/notes";
 import auth from "./slices/auth";
 
 export const store = configureStore({
   reducer: {
-    todo,
+    task,
     notes,
     auth,
   },

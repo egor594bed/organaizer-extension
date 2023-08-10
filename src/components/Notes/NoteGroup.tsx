@@ -16,9 +16,10 @@ import { useDispatch } from "react-redux";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { MyAddInput } from "../UI/MyAddInput/MyAddInput";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import { TNotesGroup } from "../../types/NotesTypes";
 
 interface INoteGroup {
-  notesGroupData: NotesGroup;
+  notesGroupData: TNotesGroup;
 }
 
 export const NoteGroup: FC<INoteGroup> = ({ notesGroupData }) => {

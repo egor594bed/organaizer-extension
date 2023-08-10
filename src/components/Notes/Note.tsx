@@ -2,7 +2,6 @@ import React, { FC, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   IconButton,
-  InputAdornment,
   ListItemButton,
   ListItemText,
   Skeleton,
@@ -12,10 +11,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { changeNoteText, removeNote, showNote } from "../../redux/slices/notes";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import CheckIcon from "@mui/icons-material/Check";
+import { TNote } from "../../types/NotesTypes";
 
 interface INote {
-  noteData: Note;
+  noteData: TNote;
 }
 
 export const Note: FC<INote> = ({ noteData }) => {

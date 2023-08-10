@@ -4,11 +4,13 @@ import { RootState } from "../../redux/store";
 import { Typography } from "@mui/material";
 import { NoteGroup } from "./NoteGroup";
 import { MyList } from "../UI/MyList/MyList";
+import { TNotesGroup } from "../../types/NotesTypes";
 
 export const NotesList = () => {
-  const NotesGroupList: NotesGroup[] = useSelector(
+  const NotesGroupList: TNotesGroup[] = useSelector(
     (state: RootState) => state.notes.noteList
   );
+
   return (
     <MyList>
       {NotesGroupList.length > 0 ? (

@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { removeTask, toggleTask } from "../../redux/slices/todo";
+import { removeTask, toggleTask } from "../../redux/slices/task";
 import { useDispatch } from "react-redux";
 import { Task } from "../../types/TodoTypes";
 import dayjs from "dayjs";
@@ -17,7 +17,7 @@ interface ITodoTask {
   taskData: Task;
 }
 
-export const TodoTask: FC<ITodoTask> = memo(({ taskData }) => {
+export const TaskItem: FC<ITodoTask> = memo(({ taskData }) => {
   const dispatch = useDispatch();
   const removeHandler = (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
