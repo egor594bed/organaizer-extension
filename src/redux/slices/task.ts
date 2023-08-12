@@ -1,6 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import localStorageService from "../../services/local-storage-service";
-import { TTask } from "../../types/TodoTypes";
+import { TTask } from "../../types/TaskTypes";
 import dataApiService from "../../services/data-api-service";
 
 interface ITodoSlice {
@@ -14,9 +14,7 @@ const initialState: ITodoSlice = {
 };
 
 export const getTasks = createAsyncThunk("taskSlice/getTasks", () => {
-  try {
-    return dataApiService.getData<TTask[]>("tasks");
-  } catch (error) {}
+  return dataApiService.getData<TTask[]>("tasks");
 });
 
 export const taskSlice = createSlice({

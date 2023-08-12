@@ -7,6 +7,7 @@ export default function getNonActualData(
 ): dataPossibleTypes[] {
   const dataArr =
     localStorageService.getLocalStorageData<dataPossibleTypes>(dataType);
+
   const filteredDataArr = dataArr.filter((elem) => {
     if (!elem.actualData) return true;
     return false;

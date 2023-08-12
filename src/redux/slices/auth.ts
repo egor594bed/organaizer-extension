@@ -1,5 +1,6 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { baseURL } from "../../const/config";
+import authService from "../../services/auth-service";
 const initialState = {
   isAuth: false,
   loading: false,
@@ -7,26 +8,7 @@ const initialState = {
 };
 
 export const checkAuth = createAsyncThunk("authSlice/checkAuth", async () => {
-  const accessToken = localStorage.getItem("accessToken");
-  if (!accessToken) return false;
-
-  try {
-    const response = await fetch(`${baseURL}/api/auth/tokenVerification`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    if (!response.ok) return false;
-
-    const data = await response.json();
-    localStorage.setItem("accessToken", data.accessToken);
-
-    return true;
-  } catch (error) {
-    return false;
-  }
+  return authService.verifyTokens();
 });
 
 export const AuthSlice = createSlice({

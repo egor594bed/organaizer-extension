@@ -14,9 +14,7 @@ const initialState: INotesSlice = {
 };
 
 export const getNotes = createAsyncThunk("notesSlice/getNotes", () => {
-  try {
-    return dataApiService.getData<TNotesGroup[]>("notes");
-  } catch (error) {}
+  return dataApiService.getData<TNotesGroup[]>("notes");
 });
 
 export const notesSlice = createSlice({

@@ -10,7 +10,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { removeTask, toggleTask } from "../../redux/slices/task";
 import { useDispatch } from "react-redux";
-import { TTask } from "../../types/TodoTypes";
+import { TTask } from "../../types/TaskTypes";
 import dayjs from "dayjs";
 
 interface ITodoTask {
@@ -23,7 +23,7 @@ export const TaskItem: FC<ITodoTask> = memo(({ taskData }) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
-    dispatch(removeTask(taskData.id));
+    dispatch(removeTask(taskData.id || taskData._id));
   };
   const toggleTaskHandler = (
     e: React.MouseEvent<HTMLDivElement, MouseEvent>

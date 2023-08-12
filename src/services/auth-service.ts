@@ -11,6 +11,30 @@ class AuthService {
       }),
     });
   }
+
+  async verifyTokens() {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) return false;
+
+    try {
+      const response = await fetch(`${baseURL}/api/auth/tokenVerification`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      if (!response.ok) return false;
+
+      const data = await response.json();
+      localStorage.setItem("accessToken", data.accessToken);
+
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 export default new AuthService();

@@ -20,7 +20,7 @@ import {
 import { DateTimePicker } from "@mui/x-date-pickers";
 import CloseIcon from "@mui/icons-material/Close";
 import dayjs from "dayjs";
-import { TTask } from "../../types/TodoTypes";
+import { TTask } from "../../types/TaskTypes";
 
 const AccordionSummary = styled((props: AccordionSummaryProps) => (
   <MuiAccordionSummary {...props} />
@@ -46,6 +46,9 @@ export const TaskForm = () => {
 
   const todoSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    //Требует добавить _id
+    //@ts-expect-error
     const newTask: TTask = {
       id: String(Date.now()),
       text: formInput.trim(),
