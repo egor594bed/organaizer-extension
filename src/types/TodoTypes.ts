@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export type Task = {
+export type TTask = {
   id: string;
   text: string;
   done: boolean;

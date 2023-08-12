@@ -97,6 +97,7 @@ export const notesSlice = createSlice({
         state.loading = false;
         if (!action.payload) return;
         state.noteList = action.payload;
+        localStorageService.saveNewData(state.noteList, "notes");
       }
     );
   },

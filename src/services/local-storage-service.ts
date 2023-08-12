@@ -1,6 +1,4 @@
-import { dataType } from "../types/DataTypes";
-import { TNotesGroup } from "../types/NotesTypes";
-import { Task } from "../types/TodoTypes";
+import { dataPossibleTypes, dataType } from "../types/DataTypes";
 
 class LocalStorageService {
   getLocalStorageData<T>(storageName: dataType): T[] {
@@ -10,7 +8,7 @@ class LocalStorageService {
     return JSON.parse(localStorage.getItem(storageName + "_storage") as string);
   }
 
-  saveNewData(newTasksArr: Task[] | TNotesGroup[], storageName: dataType) {
+  saveNewData(newTasksArr: dataPossibleTypes[], storageName: dataType) {
     localStorage.setItem(storageName + "_storage", JSON.stringify(newTasksArr));
   }
 }

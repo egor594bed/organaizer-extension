@@ -3,13 +3,13 @@ import { Divider, ListItem, Typography } from "@mui/material";
 import { TaskItem } from "./TaskItem";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { Task } from "../../types/TodoTypes";
+import { TTask } from "../../types/TodoTypes";
 import { MyList } from "../UI/MyList/MyList";
 
 interface ITodoList {}
 
 export const TaskList: FC<ITodoList> = () => {
-  const taskList: Task[] = useSelector(
+  const taskList: TTask[] = useSelector(
     (state: RootState) => state.task.taskList
   );
   return (

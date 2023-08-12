@@ -1,9 +1,8 @@
 import { baseURL } from "../const/config";
-
-type data = "tasks" | "notes";
+import { dataType } from "../types/DataTypes";
 
 class DataApiService {
-  async getData<T>(dataType: data): Promise<T> {
+  async getData<T>(dataType: dataType): Promise<T> {
     return await fetch(`${baseURL}/api/${dataType}/getData`, {
       method: "GET",
       credentials: "include",
@@ -15,8 +14,8 @@ class DataApiService {
     });
   }
 
-  async saveData(dataType: data, data: any) {
-    //Сделать обработку входных данных и убрать локалсторадж
+  async saveData(dataType: dataType, data: any) {
+    if (data.length === 0) return;
     return await fetch(`${baseURL}/api/${dataType}/saveData`, {
       method: "POST",
       credentials: "include",
@@ -31,7 +30,7 @@ class DataApiService {
   }
 
   //Реальзовать на беке
-  async deleteData(dataType: data, id: string) {
+  async deleteData(dataType: dataType, id: string) {
     return await fetch(`${baseURL}/api/${dataType}/deleteData?id=${id}`, {
       method: "DELETE",
       credentials: "include",

@@ -4,22 +4,16 @@ import { Outlet } from "react-router-dom";
 import { TabBarNavigate } from "./TabBar/TabBarNavigate";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import localStorageService from "../services/local-storage-service";
 import dataApiService from "../services/data-api-service";
+import getNonActualData from "../utils/getNonActualData";
 
 export const Layout = () => {
   const isAuth = useSelector((state: RootState) => state.auth.isAuth);
 
   useEffect(() => {
     if (isAuth) {
-      dataApiService.saveData(
-        "notes",
-        localStorageService.getLocalStorageData("notes") || []
-      );
-      dataApiService.saveData(
-        "tasks",
-        localStorageService.getLocalStorageData("tasks") || []
-      );
+      dataApiService.saveData("notes", getNonActualData("notes"));
+      dataApiService.saveData("tasks", getNonActualData("tasks"));
     }
   }, []);
 

@@ -1,21 +1,21 @@
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import localStorageService from "../../services/local-storage-service";
-import { Task } from "../../types/TodoTypes";
+import { TTask } from "../../types/TodoTypes";
 import dataApiService from "../../services/data-api-service";
 
 interface ITodoSlice {
-  taskList: Task[];
+  taskList: TTask[];
   loading: boolean;
 }
 
 const initialState: ITodoSlice = {
-  taskList: localStorageService.getLocalStorageData<Task>("tasks"),
+  taskList: localStorageService.getLocalStorageData<TTask>("tasks"),
   loading: false,
 };
 
 export const getTasks = createAsyncThunk("taskSlice/getTasks", () => {
   try {
-    return dataApiService.getData<Task[]>("tasks");
+    return dataApiService.getData<TTask[]>("tasks");
   } catch (error) {}
 });
 
@@ -24,11 +24,11 @@ export const taskSlice = createSlice({
   initialState,
   reducers: {
     addTask: {
-      reducer: (state, action: PayloadAction<Task>) => {
+      reducer: (state, action: PayloadAction<TTask>) => {
         state.taskList = [action.payload, ...state.taskList];
         localStorageService.saveNewData(state.taskList, "tasks");
       },
-      prepare: (task: Task) => ({ payload: task }),
+      prepare: (task: TTask) => ({ payload: task }),
     },
     removeTask(state, action: PayloadAction<string>) {
       state.taskList = state.taskList.filter((elem) => {
@@ -53,7 +53,7 @@ export const taskSlice = createSlice({
     });
     builder.addCase(
       getTasks.fulfilled,
-      (state, action: PayloadAction<Task[] | undefined>) => {
+      (state, action: PayloadAction<TTask[] | undefined>) => {
         state.loading = false;
         if (!action.payload) return;
         state.taskList = action.payload;

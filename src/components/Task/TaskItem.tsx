@@ -10,11 +10,11 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import { removeTask, toggleTask } from "../../redux/slices/task";
 import { useDispatch } from "react-redux";
-import { Task } from "../../types/TodoTypes";
+import { TTask } from "../../types/TodoTypes";
 import dayjs from "dayjs";
 
 interface ITodoTask {
-  taskData: Task;
+  taskData: TTask;
 }
 
 export const TaskItem: FC<ITodoTask> = memo(({ taskData }) => {
